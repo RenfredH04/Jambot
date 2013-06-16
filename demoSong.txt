@@ -1,0 +1,3 @@
+BPM|tempoSensitivity,pitchSensitivity|playStyle|*pitchSelection|*rhythms
+130|random|30,12|(C3, D#4, F4, F#4, G4, A#4, C5)|(s, s, e)/(e, s, s)/(s, s, s, s)|
+120|set|30,6|(D#2, G2, C3, D#3, G3, D#4, G4, C5, G4, D#4, G3, D#3, C3, G2)|(s)
