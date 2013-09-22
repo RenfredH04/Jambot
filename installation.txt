@@ -1,0 +1,90 @@
+These are the installation instructions needed to setup drivers for an iRobot with python. They were copied from the GMU CS 101 course page.
+
+Step 1: Installing the Drivers
+Driver/Python combinations we know have worked in the past for Windows and OSX are attached to this post.
+
+Installation on XP & 7
+(Beats me if this works on Vista)
+If your laptop does not have a serial port, you will need to install the software for the Keyspan serial to USB adaptor (KeyspanUSA19hsWinV37.exe). This will also install a program you can use to extract the COM number when you plug in the adaptor (my guess is you'll find it's COM4 -- it might be COM3)
+Install Python 2.5 or higher (python-2.5.1.msi) if you've not already.
+Install the PyWin windows extensions to Python (pywin32-210.win32-py2.5.exe)
+Install the PySerial serial port facility for Python (pyserial-2.2.win32.exe, relies on PyWin).
+Reboot for good measure.
+
+Installation on OS X Leopard or Lion
+Note: these instructions may not be correct... please help out your fellow Mac users!
+Install the Keyspan serial to USB adaptor (keyspanUSAdrvr.pkg). You may need to reboot at this point.
+Install Python 2.5.1 if it isn't already installed.
+Install the PySerial.
+Save create.py and pyserial-2.2 in the MacPython 2.5 folder in Applications.
+Open a terminal (Applications > Utilities > Terminal) and do:
+cd /Applications/MacPython\ 2.5/
+sudo ./Update\ Shell\ Profile.command
+cd [wherever pyserial-2.2 is located]
+sudo python setup.py install
+Installation on Linux
+If you're running Ubuntu, you'll need to manually modify your kernel to install the Keyspan driver for it. You're on your own there!
+Get at least python 2.3 installed.
+If you're running something else, the Keyspan driver may already be installed. You need to rebuild the pyserial package (get it from the OS X drivers here) and install it in the proper site-packages location for your python installation.
+Lost? Talk to Professor Duric.
+
+Step 2: Hooking up the Create
+Install and charge the Create's battery to the top before playing with it at all.
+Plug the serial cable into the robot.
+Attach the other end of the serial cable to your Keyspan adaptor.
+Attach the USB cable to the Keyspan adaptor.
+Attach the other end of the USB cable to your computer.
+
+Step 3: Identifying the serial port
+On the Mac, the serial port is "/dev/tty.KeySerial1". If this doesn't work, check the Keyspan serial assistant (Applications), click the arrow on the left and replace the "tty._______" with what you see here
+On Windows, the serial port is either 3 or 4 (representing COM3 or COM4). You can find out for sure by running the installed Keyspan companion software.
+On Linux, the serial port is "/dev/ttyUSB0" That's "0" as in "Zero". Notice the capital S.
+
+Step 4: Launching python and loading create.py
+You can launch python in one of three ways:
+
+Run the python command line
+Change directory to wherever you placed the create.py file. Then run python. It's important that this file be ''in the same directory as you are when you run python.
+At the python command line, type: import create and press return.
+or
+ 
+Run idle (only available in python 2.4 or higher)
+Fire up idle.
+Open the create.py file. You may need to tell idle to allow you to open "All files" to do this.
+Tell idle to load this as a module. On the Mac, it's Run: Run Module or F5.
+In the Python Shell window, type: import create and press return.
+or
+ 
+Run PythonWin in Windows
+Open the PythonWin software you installed above. It will provide you with a terminal where you can type Python commands.
+Go to the File menu and select Import. Select the create.py and press Open.
+Possible Bugs At This Stage
+
+You may get the following back:
+Traceback (most recent call last):
+  File "<pyshell#0>", line 1, in -toplevel-
+    import create
+ImportError: No module named create
+This may have happened if you ran python from the command line and tells you that the python system couldn't find the 'create' file. It's probably not located in the right place -- it ought to be in same the directory you were in when you ran the python command.
+Or you could get this one:
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+  File "create.py", line 13, in ?
+    import serial
+ImportError: No module named serial
+This means that the pyserial code was not installed in the right location and python couldn't find it when the create.py requested it. If you're getting desperate, there's one last place you can stick the serial directory: you can put it right next to the create.py file. Do not put the create.py file in the serial directory. Next to it. Try running that way.
+
+
+Step 5: Connecting to the RobotIf you're running Windows, type and press RETURN:
+r = create.Create(4)
+(or maybe 3 rather than 4. The number here is the COM port of your Keyspan device).
+If you're running OS X, type and press RETURN:
+r = create.Create("/dev/tty.KeySerial1")
+If you're running linux, type and press RETURN:
+r = create.Create("/dev/ttyUSB0")
+Remember, it's "0" as in "zero".
+If successful, you will get back something like this...
+PORT is /dev/tty.KeySerial1
+Serial port did open, presumably to a roomba...
+Putting the robot into safe mode...
+If so, congratulations, you're up and running! 
